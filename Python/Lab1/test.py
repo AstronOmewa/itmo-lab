@@ -33,6 +33,11 @@ class TestPy(unittest.TestCase):
         self.assertEqual(add([1,1,1,1], 1), None)
         with self.assertRaises(TypeError):
             raise Warning("Equal ints in nums: list[int] detected")
+        
+    def test_none(self):
+        self.assertEqual(self):
+        with self.assertRaises(NoMatchingIndiciesFoundException):
+            raise NoMatchingIndiciesFoundException("None")
     
 
 if __name__== "__main__":
