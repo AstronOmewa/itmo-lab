@@ -1,5 +1,5 @@
 import unittest
-
+from CustomExceptions import *
 
 
 def add(nums: list[int], target: int) -> list[int]:
@@ -15,9 +15,15 @@ def add(nums: list[int], target: int) -> list[int]:
     if type(target) != int:
         raise TypeError("target isn't instance of int()")
     
+    # if len(set(nums))==1 and (not (nums[0]*target//nums[0]!=target or target//nums[0]>len(nums))):
+    #     raise Exception("all elements in nums are equal between each other")
+    
+    if len(set(nums))==1 and (nums[0]*target//nums[0]!=target or target//nums[0]>len(nums)):
+        raise Exception("all elements in nums are equal between each other AND no matching indicies detected")
+    
     for i in range(len(nums)):
         for j in range(i+1,len(nums)):
             if nums[i]+nums[j] == target:
                 return [i, j]
         
-    return None
+    raise NoMatchingIndiciesFoundException("None")

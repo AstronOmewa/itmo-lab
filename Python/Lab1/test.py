@@ -26,7 +26,14 @@ class TestPy(unittest.TestCase):
         
         self.assertEqual(add(['',1.2, "asdsada",[],{}], 1), TypeError)
         with self.assertRaises(TypeError):
-            raise TypeError("Type of nums=list[int] doesn't match")
+            raise TypeError("Type of nums: list[int] doesn't match")
+        
+    def test_equal_nums(self):
+        
+        self.assertEqual(add([1,1,1,1], 1), None)
+        with self.assertRaises(TypeError):
+            raise Warning("Equal ints in nums: list[int] detected")
+    
 
 if __name__== "__main__":
     unittest.main(verbosity=2)
