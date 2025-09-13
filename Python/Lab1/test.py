@@ -18,26 +18,21 @@ class TestPy(unittest.TestCase):
         
     def test_nums_not_list(self):
         
-        self.assertEqual(add("", 1), TypeError)
-        with self.assertRaises(TypeError):
-            raise TypeError("Type of nums=list[int] doesn't match")
-        
+        add("", 1) # для проверки assertRaises
+        with self.assertRaises(NumsNotListError) as e:
+            print(e.msg)
+            
     def test_all_els_in_nums_is_instance_of_int(self):
         
-        self.assertEqual(add(['',1.2, "asdsada",[],{}], 1), TypeError)
-        with self.assertRaises(TypeError):
-            raise TypeError("Type of nums: list[int] doesn't match")
+        add(['',1.2, "asdsada",[],{}], 1) # для проверки assertRaises
+        with self.assertRaises(NumsContainsNotIntError) as e:
+            print(e.msg)
+    
+    def test_target_isnan(self):
         
-    def test_equal_nums(self):
-        
-        self.assertEqual(add([1,1,1,1], 1), None)
-        with self.assertRaises(TypeError):
-            raise Warning("Equal ints in nums: list[int] detected")
-        
-    def test_none(self):
-        self.assertEqual(self):
-        with self.assertRaises(NoMatchingIndiciesFoundException):
-            raise NoMatchingIndiciesFoundException("None")
+        add([1,1], "wqe") # для проверки assertRaises
+        with self.assertRaises(TargetIsNANError) as e:
+            print(e.msg)
     
 
 if __name__== "__main__":
