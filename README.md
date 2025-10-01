@@ -7,4 +7,4 @@
 
 Лабораторная работа 2: https://github.com/AstronOmewa/itmo-lab/tree/main/Python/lAB2
 
-
+Лабораторная работа 3: https://github.com/AstronOmewa/itmo-lab/tree/main/Python/Lab3
