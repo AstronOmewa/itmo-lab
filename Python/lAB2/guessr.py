@@ -22,12 +22,12 @@ def guess_number(num_guessed: int, num_list: list[int], guessing_way: Literal["b
         """Вернёт кортеж из 2 значений: загаданное число и количество потраченных на угадывание числа попыток бинарным поиском."""
         nonlocal num_list
         num_list.sort()
-        print(num_list)
+        # print(num_list)
         left, right = 0, len(num_list)-1
         mid = (left+right)//2
         guesses = 1
         while right - left != 0:
-            print(mid)
+            # print(mid)
             if num_list[mid] < num_guessed:
                 left = mid + 1
             elif num_list[mid] > num_guessed:
