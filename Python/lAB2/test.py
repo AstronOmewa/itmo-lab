@@ -1,5 +1,5 @@
 import unittest, guessr
-from helper import helper as hlpr
+
 
 class Test(unittest.TestCase):
     def testSlowGuessing(self):
@@ -7,7 +7,7 @@ class Test(unittest.TestCase):
         """
         self.assertEqual(
             guessr.guess_number(
-                32,hlpr(1,32),'slow'
+                32,list(range(1,32+1)),'seq'
             ),
             (32,32)
         )
@@ -16,7 +16,7 @@ class Test(unittest.TestCase):
         """
         self.assertEqual(
             guessr.guess_number(
-                32,hlpr(1,32),"binary"
+                32,list(range(1,32+1)),"bin"
             ),
             (32, 6)
         )
@@ -27,8 +27,8 @@ class Test(unittest.TestCase):
         with self.assertRaises(ValueError, 
                           guessr.guess_number(
                               -1,
-                              hlpr(1,2),
-                              "binary")
+                              list(range(1,2)),
+                              "bin")
                         ) as e:
             pass
         
@@ -39,7 +39,7 @@ class Test(unittest.TestCase):
                                guessr.guess_number(
                                    1,
                                    ['',1,set([1,2])],
-                                   "slow")
+                                   "seq")
                         ) as e:
             pass
     
@@ -50,7 +50,7 @@ class Test(unittest.TestCase):
                                guessr.guess_number(
                                    3,
                                    [1,2],
-                                   "binary"
+                                   "bin"
                                )
                         ) as e:
             pass

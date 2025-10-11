@@ -13,7 +13,7 @@ public final class Attack{
 
     // Cryogonal's moves
     /**** 
-     * Атака Sharpen типа NORMAL: Увеличивает значение поля Stat.ATTACK (атаки) на 2 ступени.
+     * Атака Sharpen типа NORMAL: Увеличивает значение поля Stat.ATTACK (атаки) на 2 ступени. 
      */
     public static final class Sharpen extends StatusMove{
         /**
@@ -47,7 +47,7 @@ public final class Attack{
         // Поле succeed предназначено для различных выводов при успешности/ не успешности атаки
         private boolean succeed = false;
         /**
-         * Конструктор класса Flash Cannon без параметров. Наследован от суперкласса ru.ifmo.se.pokemon.StatusMove. Устанавливает тип атаки STEEL, 80 pow и 100 acc. 
+         * Конструктор класса FlashCannon без параметров. Наследован от суперкласса ru.ifmo.se.pokemon.StatusMove. Устанавливает тип атаки STEEL, 80 pow и 100 acc. 
          */
         public FlashCannon(){
             super(Type.STEEL, 80, 100);
@@ -65,7 +65,7 @@ public final class Attack{
             }
         }
          /**
-         * Переопределенный наследованный от суперкласса StatusMove метод describe. Выводит сообщение об использовании атаки.
+         * Переопределенный наследованный от суперкласса SpecialMove метод describe. Выводит сообщение об использовании атаки.
          * 
          */
         @Override
@@ -80,25 +80,42 @@ public final class Attack{
      */
 
     public static final class Recover extends StatusMove{
+        /**
+         * Конструктор класса Recover без параметров. Наследован от суперкласса ru.ifmo.se.pokemon.StatusMove. Устанавливает тип атаки NORMAL, 0 pow и 100 acc. 
+         */
         public Recover(){
             super(Type.NORMAL, 0, 100);
         }
+        /**
+         * Переопределенный наследованный от суперкласса SpecialMove метод applySelfEffects. Восстанавливает здоровье полностью.
+         */
         @Override
         protected void applySelfEffects(Pokemon p){
             p.restore(e);
         }
+         /**
+         * Переопределенный наследованный от суперкласса SpecialMove метод describe. Выводит сообщение об использовании атаки.
+         * 
+         */
         @Override
         public String describe(){
-            return "применил Rest (восполнил HP)";
+            return "применил Recover (восполнил HP)";
         }
     }
 
-
+    /**
+     * Атака Rest типа PSYCHIC: Восстанавливает Stat.HP (здоровье) полностью, покемон спит 2 хода.
+     */
     public static final class Rest extends StatusMove{
+        /**
+         * Конструктор класса Rest без параметров. Наследован от суперкласса ru.ifmo.se.pokemon.StatusMove. Устанавливает тип атаки PSYCHIC, 0 pow и 100 acc. 
+         */
         public Rest(){
             super(Type.PSYCHIC, 0, 100);
-            
         }
+        /**
+         * Переопределенный наследованный от суперкласса SpecialMove метод applySelfEffects. Восстанавливает здоровье полностью, заставляет спать на 2 хода.
+         */
         @Override
         protected void applySelfEffects(Pokemon p){
             Effect rest = new Effect().turns(2);
@@ -106,6 +123,10 @@ public final class Attack{
             p.restore();
             p.addEffect(rest);
         }
+        /**
+         * Переопределенный наследованный от суперкласса SpecialMove метод describe. Выводит сообщение об использовании атаки.
+         * 
+         */
         @Override
         public String describe(){
             return "применил Rest";
@@ -113,29 +134,50 @@ public final class Attack{
     }
 
     // Spinarak's moves
-
+    /**
+     * Атака Rest типа GRASS: Восстанавливает Stat.HP (здоровье) на 3 ступени.
+     */
     public static final class Absorb extends SpecialMove{
-
+        /**
+         * Конструктор класса Absorb без параметров. Наследован от суперкласса ru.ifmo.se.pokemon.SpecialMove. Устанавливает тип атаки GRASS, 20 pow и 100 acc. 
+         */
         public Absorb() {
             super(Type.GRASS, 20, 100);
 
         }
+        /**
+         * Переопределенный наследованный от суперкласса SpecialMove метод applySelfEffects. Восстанавливает здоровье на 3 ступени.
+         */
         @Override
         protected void applySelfEffects(Pokemon p){
             Effect e = new Effect().stat(Stat.HP, -3);
         }
+        /**
+         * Переопределенный наследованный от суперкласса SpecialMove метод describe. Выводит сообщение об использовании атаки.
+         * 
+         */
         @Override 
         public String describe(){
             return "применил Absorb (восстановлено 50% здоровья, нанесен урон)";
         }
     }
 
+    /**
+     * Атака типа BUG: Увеличивает атаку.
+     */
 
     public static final class PinMissile extends PhysicalMove{
+        /**
+         * Конструктор класса PinMissile без параметров. Наследован от суперкласса ru.ifmo.se.pokemon.PhysicalMove. Устанавливает тип атаки BUG, 25 pow, 95 acc, 1 priority и наносит от 2 до 5 ударов. 
+         */
         public PinMissile(){
-            super(Type.BUG, 25, 95, 1, ((int)(Math.random()*3.0))+2);
+            super(Type.BUG, 25, 95, 1, Math.ceil((Math.random()*3.0))+2);
             
         }
+        /**
+         * Переопределенный наследованный от суперкласса SpecialMove метод applySelfEffects. 
+         * Увеличивает Stat.ATTACK (атаку) на 1-4 ступени.
+         */
         @Override
         protected void applySelfEffects(Pokemon p){
             Random generator = new Random();
@@ -155,13 +197,22 @@ public final class Attack{
             }
             p.addEffect(e);
         }
+        /**
+         * Переопределенный наследованный от суперкласса SpecialMove метод describe. Выводит сообщение об использовании атаки.
+         * 
+         */
         @Override 
         public String describe(){
             return "применил Pin Missile (нанесен урон + увеличен наносимый урон)";
         }
     }
-
+    /**
+     * Атака Rest типа BUG. Наносит урон.
+     */
     public static final class XScissor extends PhysicalMove{
+        /**
+         * Конструктор класса XScissor без параметров. Наследован от суперкласса ru.ifmo.se.pokemon.PhysicalMove. Устанавливает тип атаки BUG, 25 pow, 95 acc, 1 priority и наносит от 2 до 5 ударов. 
+         */
         public XScissor(){
             super(Type.BUG, 80, 100);
         }
