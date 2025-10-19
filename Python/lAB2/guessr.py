@@ -56,4 +56,4 @@ def guess_number(num_guessed: int, num_list: list[int], type_: Literal["bin" , "
         return slow_guessing()
     if type_ == "bin":
         return binary_search()
-   
+

@@ -1,2 +1,3 @@
 ./Python/Lab?/__pycache__
 ./.venv
+*.code-workspace
