@@ -10,7 +10,6 @@ def left_branch(root):
     """
     return root + root / 2
 
-lef
 # Вариант 6-R
 def right_branch(root):
     """Генерирует правый лист дерева
