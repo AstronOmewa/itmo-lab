@@ -1,3 +1,4 @@
+import pokemon.Attack;
 import ru.ifmo.se.pokemon.*;
 
 public class Spinarak extends Pokemon{
