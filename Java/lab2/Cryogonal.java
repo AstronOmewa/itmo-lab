@@ -1,3 +1,4 @@
+import pokemon.Attack;
 import ru.ifmo.se.pokemon.*;
 
 public final class Cryogonal extends Pokemon{

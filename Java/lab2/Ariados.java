@@ -1,6 +1,7 @@
+import pokemon.Attack;
 import ru.ifmo.se.pokemon.*;
 
-public class Ariados extends Spinarak{
+public final class Ariados extends Spinarak{
     public Ariados(String name, int level){
         super(name, level);
         setStats(

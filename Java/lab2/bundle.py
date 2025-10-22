@@ -28,6 +28,7 @@ for (dir, _, files) in os.walk(path):
 
 with open('MANIFEST.mf','w') as f:
     f.write(f'Main-Class: {main_class}\n')
+    
 with open(classes_string.split()[0]):
     subprocess.run(['jar','-cfm',f'{name}.jar', f'MANIFEST.mf',f'{classes_string.strip()}']) 
     subprocess.run(['java', '-jar', f'{name}.jar' ])
