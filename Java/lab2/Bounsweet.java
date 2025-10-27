@@ -1,4 +1,4 @@
-import pokemon.Attack;
+
 import ru.ifmo.se.pokemon.*;
 
 public class Bounsweet extends Pokemon{
