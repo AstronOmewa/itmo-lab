@@ -1,4 +1,3 @@
-package pokemon;
 import ru.ifmo.se.pokemon.*;
 
 import java.util.*;
@@ -10,7 +9,7 @@ import java.util.*;
  * @see ru.ifmo.se.pokemon.Move
  */
 
-public final class Attack{
+public abstract class Attack{
 
     // Cryogonal's moves
     /**** 

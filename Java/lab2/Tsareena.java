@@ -1,4 +1,3 @@
-import pokemon.Attack;
 
 public final class Tsareena extends Steenee{
     public Tsareena(String name, int level){
