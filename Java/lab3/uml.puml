@@ -1,0 +1,215 @@
+@startuml UML
+skin rose
+top to bottom direction
+' skinparam linetype ortho
+
+class Shutilo extends Human implements Distractable{
+    = если спешит, то срабатывает Event(получаться не как надо)
+    + veryHurry()
+    + jumpOverRoom()
+    + goOut()
+    + collideWith(Breakable brItem)
+}
+
+class Korzhik extends Human{
+
+}
+
+class Swisstulkin extends Human{
+    
+}
+
+class Jacket extends Cloth implements Storable{
+     - inventory: Inventory
+     ' + store(int inventoryPosition)
+}
+
+class Inventory implements Storable{
+    - inventory: ArrayList<InventoryCell>
+
+    + addItem(Item it)
+    + rmItem(Item it)
+    + swapItems(Item it1, Item it2)
+}
+
+class DriverLicense{
+    - vehicle: Car
+}
+
+class Tie extends Cloth implements WearableInsideOut{
+
+}
+
+class Chulki extends Cloth implements Missarrangeable{
+
+}
+
+class Pants extends Cloth implements Misswearable{
+
+}
+
+class FlowerPot implements Storable, Breakable{
+    - flower: FlowerType
+}
+
+abstract class Cloth extends Item implements Wearable{
+    - whoWears: Human
+    # abstract method
+}
+
+class InventoryCell <<record>>{
+    - item: Item
+    - place: Place 
+}
+
+abstract class Human{
+    # name: String
+    # inventory: Inventory
+    + abstract showInventory() ' +
+    + addItemToInventory(Item it)
+    + rmItemFromInventory(Item it)
+}
+
+abstract class Item{
+    # owner: Human
+    # name: String 
+    + abstract method
+
+}
+
+class Event{
+    - subject: Human | None
+    - event: EventType
+    - when: Time | None
+    - object: Human | None
+    + happen()
+}
+class EventSequence{
+    - sequence: ArrayList<Event>
+    - condition: Event | None
+    - when: Time | None
+    - object: Human | None
+    + addEvent(Event e)
+    + simulate()
+}
+
+class Story{
+    - story: ArrayList<EventSequence>
+    + tell()
+    + addSequence(EventSequence evSeq)
+}
+class Car extends Item{
+
+}
+
+interface Storable{
+    + store(int inventoryPosition);
+}
+
+interface Wearable{
+    + wear(Human whoWears);
+}
+' экипируемое
+
+interface WearableInsideOut extends Wearable{
+    + wearInsideOut()
+}
+
+interface Misswearable extends Wearable{
+    + missswear()
+}
+
+interface Missarrangeable{
+    + missarrange()
+}
+
+interface Breakable{
+    + breakItem()
+}
+
+interface Distractable{
+    + distract()
+}
+
+enum FlowerType{
+    DAISY
+    TULIP
+    ROSE
+}
+
+enum EventType{
+    WENTWRONG
+    BREAK
+    FALLASLEEP
+    OBSERVEABSCENCE
+}
+
+enum Time{
+    ATTHEENDOF
+    INTHEEND
+    VERYLATEATTHATNOGHT
+    NEXTDAY
+}
+
+enum Place{
+    LEFTPOCKET
+    RIGHTPOCKET
+}
+
+' 1. Композиция: Human → Inventory (человек имеет инвентарь)
+Human "1" *-- "1" Inventory : имеет >
+
+' 2. Композиция: Inventory → InventoryCell (инвентарь состоит из ячеек)
+Inventory "1" *-- "many" InventoryCell : содержит >
+
+' 3. Ассоциация: InventoryCell → Item (ячейка содержит предмет)
+InventoryCell "1" --> "1" Item : содержит >
+
+' 4. Ассоциация: Item → Human (предмет принадлежит человеку)
+Item "0..1" --> "1" Human : владелец >
+
+' 5. Ассоциация: Cloth → Human (одежда может быть на человеке)
+Cloth "0..1" --> "1" Human : кто носит > 
+
+' 6. Зависимость: FlowerPot → FlowerType
+FlowerPot ..> FlowerType : использует >
+
+' 7. Ассоциация: DriverLicense → Car
+DriverLicense "1" --> "1" Car : для транспорта >
+
+' 8. Ассоциация: Car → Human
+Car "1" --> "1" Human : владелец >
+
+' 9. Ассоциация: Event → Human
+Event "0..*" --> "0..2" Human : субъект/объект >
+
+' 10. Зависимость: Event → EventType
+Event ..> EventType : имеет тип >
+
+' 11. Зависимость: Event → Time
+Event ..> Time : время >
+
+' 12. Композиция: EventSequence → Event
+EventSequence "1" *-- "many" Event : состоит из >
+
+' 13. Ассоциация: Jacket → Inventory (куртка имеет карманы-инвентарь)
+Jacket "1" o-- "1" Inventory : карманы >
+
+' 14. Ассоциация: InventoryCell → Place
+InventoryCell "1" --> "1" Place : расположение >
+
+' 15. Ассоциация: Human → EventSequence (человек участвует в событиях)
+Human "1" --> "0..*" EventSequence : участвует в >
+
+Story ..> EventSequence : использует >
+
+' Shutilo использует Breakable в методе collideWith
+Shutilo ..> Breakable
+
+' Human использует Item в методах
+Human ..> Item
+
+' EventSequence использует Event для условия
+EventSequence ..> Event
+
+@enduml

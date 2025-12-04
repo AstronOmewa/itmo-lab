@@ -1,0 +1,307 @@
+@startuml 
+skin rose
+top to bottom direction
+skinparam linetype straight
+
+' skinparam classAttributeIconSize 0
+
+' ==================== MODELS ====================
+
+abstract class Human {
+    # name: String
+    # inventory: Inventory
+    + Human(String)
+    + Human(String, Inventory)
+    + {abstract} showInventory(): void
+    + addToInventory(Item): void throws InventoryFullException
+    + rmFromInventory(Item): Event
+    + getName(): String
+    + setName(String): void
+    + getInventory(): Inventory
+}
+
+class Shutilo extends Human implements Distractable {
+    + Shutilo()
+    + veryHurry(): EventSequence
+    + jumpOverRoom(): Event
+    + goOut(): Event
+    + collideWith(Breakable): Event
+    + distract(): Event
+    + showInventory(): void
+}
+
+class Korzhik extends Human {
+    + Korzhik()
+    + showInventory(): void
+}
+
+class Swisstulkin extends Human {
+    + Swisstulkin()
+    + showInventory(): void
+}
+
+abstract class Item {
+    # owner: Human
+    # name: String
+    + Item(Human, String) 
+    + {abstract} changeState(String): Event
+    + getOwner(): Human
+    + setOwner(Human): void
+    + getName(): String
+    + setName(String): void
+}
+
+abstract class Cloth extends Item implements Wearable {
+    # whoWears: Human
+    + Cloth(Human, String)
+    + {abstract} wear(): Event throws ClothingMiswearException
+    + {abstract} wear(Human): Event throws ClothingMiswearException
+    + {abstract} maintainAppearance(): Event
+    + {abstract} changeState(String): Event
+    + getWhoWears(): Human
+    + setWhoWears(Human): void
+}
+
+class Tie extends Cloth implements WearableInsideOut {
+    - isInsideOut: boolean
+    + Tie(Human, String)
+    + wear(Human): Event throws ClothingMiswearException
+    + wear(): Event throws ClothingMiswearException
+    + wearInsideOut(): Event
+    + maintainAppearance(): Event
+    + changeState(String): Event
+}
+
+class Pants extends Cloth implements Misswearable {
+    - rightLegInPants: boolean
+    + Pants(Human, String)
+    + wear(Human): Event throws ClothingMiswearException
+    + wear(): Event throws ClothingMiswearException
+    + misswear(): Event throws ClothingMiswearException
+    + maintainAppearance(): Event
+    + changeState(String): Event
+}
+
+class Chulki extends Cloth implements Missarangeable {
+    - isCorrectlyArranged: boolean
+    + Chulki(Human, String)
+    + wear(Human): Event throws ClothingMiswearException
+    + wear(): Event throws ClothingMiswearException
+    + misarrange(): Event throws ClothingMiswearException
+    + maintainAppearance(): Event
+    + changeState(String): Event
+}
+
+class Jacket extends Cloth implements Storable {
+    - inventory: Inventory
+    + Jacket(Human, String)
+    + wear(Human): Event throws ClothingMiswearException
+    + wear(): Event throws ClothingMiswearException
+    + store(Item): void throws Exception
+    + maintainAppearance(): Event
+    + changeState(String): Event
+    + getJacketInventory(): Inventory
+}
+
+class Car extends Item {
+    - isWorking: boolean
+    + Car(String, Human)
+    + isWorking(): boolean
+    + breakCar(): void
+    + changeState(String): Event
+}
+
+class DriverLicense extends Item {
+    - vehicle: Car
+    - isLost: boolean
+    + DriverLicense(Car)
+    + getVehicle(): Car
+    + setVehicle(Car): void
+    + isLost(): boolean
+    + markAsLost(): void throws ItemLostException
+    + changeState(String): Event
+}
+
+class FlowerPot implements Storable, Breakable {
+    - flower: FlowerType
+    - isBroken: boolean
+    + store(Item): void throws Exception
+    + breakItem(): Event
+    + isBroken(): boolean
+    + getFlower(): FlowerType
+    + setFlower(FlowerType): void
+}
+
+class Inventory implements Storable {
+    - inventory: ArrayList<InventoryCell>
+    - MAX_CAPACITY: int = 5
+    + Inventory()
+    + getInventory(): ArrayList<InventoryCell>
+    + addItem(Item): void throws InventoryFullException
+    + rmItem(Item): void
+    + swapItems(Item, Item): void
+    + store(Item): void throws Exception
+    + show(): String
+}
+
+class InventoryCell <<record>> {
+    - item: Item
+    - place: Places
+    + getItem(): Item
+}
+
+class Event {
+    + subject: ArrayList<Human>
+    - event: EventType
+    - when: Time
+    - object: Human
+    + Event()
+    + Event(EventType)
+    + Event(EventType, ArrayList<Entity>)
+    + Event(EventType, ArrayList<Entity>, Time)
+    + Event(EventType, ArrayList<Entity>, Time, Entity)
+    + addSubject(Human): Event
+    + addTime(Time): Event
+    + addObject(Human): Event
+    + getEventType(): EventType
+    + getTime(): Time
+    + happen(): void
+}
+
+class EventSequence {
+    - sequence: ArrayList<Event>
+    - condition: Event
+    - when: Time
+    - object: Human
+    + EventSequence()
+    + EventSequence(ArrayList<Event>)
+    + EventSequence(ArrayList<Event>, Event)
+    + EventSequence(ArrayList<Event>, Event, Time)
+    + EventSequence(ArrayList<Event>, Event, Time, Human)
+    + addEvent(Event): EventSequence
+    + addCondition(Event): EventSequence
+    + addTime(Time): EventSequence
+    + addObject(Human): EventSequence
+    + simulate(): void
+}
+
+class Story {
+    - story: ArrayList<EventSequence>
+    + tell(): void
+    + addSequence(EventSequence): void
+}
+
+' ==================== EXCEPTIONS ====================
+
+class ClothingMiswearException extends Exception {
+    - clothingType: String
+    - reason: String
+    + ClothingMiswearException(String, String)
+    + getMessage(): String
+}
+
+class ItemLostException extends Exception {
+    - itemName: String
+    - previousOwner: String
+    + ItemLostException(String, String)
+    + getMessage(): String
+}
+
+class InventoryFullException extends RuntimeException {
+    - maxCapacity: int
+    + InventoryFullException(String, int)
+    + getMessage(): String
+}
+
+' ==================== INTERFACES ====================
+
+interface Wearable {
+    + wear(): Event throws ClothingMiswearException
+}
+
+interface WearableInsideOut extends Wearable {
+    + wearInsideOut(): Event
+}
+
+interface Misswearable extends Wearable {
+    + misswear(): Event throws ClothingMiswearException
+}
+
+interface Missarangeable {
+    + misarrange(): Event throws ClothingMiswearException
+}
+
+interface Storable {
+    + store(Item): void throws Exception
+}
+
+interface Breakable {
+    + breakItem(): Event
+}
+
+interface Distractable {
+    + distract(): Event
+}
+
+' ==================== ENUMS ====================
+
+enum EventType {
+    WENTWRONG
+    VERYHURRY
+    ITEMBREAK
+    FALLASLEEP
+    OBSERVEABSCENCE
+}
+
+enum Time {
+    ATTHEENDOF
+    INTHEEND
+    VERYLATETONIGHT
+    NEXTDAY
+}
+
+enum Places {
+    DEFAULT
+    LEFTPOCKET
+    RIGHTPOCKET
+    ANYCELL
+}
+
+enum FlowerType {
+    DAISY
+    TULIP
+    ROSE
+}
+
+' ==================== RELATIONSHIPS ====================
+
+' Главная архитектура: Story → EventSequence → Event
+Story "1" *-- "many" EventSequence : содержит
+EventSequence "1" *-- "many" Event : содержит
+Event --> EventType : тип события
+Event --> Time : время
+
+' Участники события
+Event "1" --> "0..2" Human : субъект/объект
+
+' Инвентарь
+Human "1" *-- "1" Inventory : имеет
+Inventory "1" *-- "many" InventoryCell : ячейки
+InventoryCell "1" --> "1" Item : предмет
+InventoryCell "1" --> "1" Places : расположение
+Jacket "1" *-- "1" Inventory : карманы
+
+' Владение предметами
+Item "many" --> "1" Human : владелец
+Cloth "many" --> "0..1" Human : носит
+
+' Связи между предметами
+DriverLicense "1" --> "1" Car : для автомобиля
+FlowerPot "1" --> "0..1" FlowerType : цветок
+
+' Исключения (выбрасываются в методах)
+ClothingMiswearException -.-> Event : выбрасывается
+ItemLostException -.-> Event : выбрасывается
+InventoryFullException -.-> Inventory : выбрасывается
+
+@enduml

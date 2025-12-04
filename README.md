@@ -11,4 +11,8 @@
 
 Лабораторная работа 4: https://github.com/AstronOmewa/itmo-lab/tree/main/Python/Lab4
 
+Лабораторная работа 5: https://github.com/AstronOmewa/itmo-lab/tree/main/Python/Lab5
+
+Лабораторная работа 6: https://github.com/AstronOmewa/itmo-lab/tree/main/Python/Lab6
+
 

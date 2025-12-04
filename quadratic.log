@@ -1,0 +1,12 @@
+2025-11-30 15:59:33,582 - INFO - Started logging: solve_quadratic((1.0, -5.0, 6.0), {})
+2025-11-30 15:59:33,582 - INFO - Finishing logging: solve_quadratic returned (3.0, 2.0)
+2025-11-30 15:59:33,583 - INFO - Started logging: solve_quadratic((1.0, 0.0, 1.0), {})
+2025-11-30 15:59:33,583 - INFO - Finishing logging: solve_quadratic returned Discriminant is negative (D<0), no real roots
+2025-11-30 15:59:33,583 - INFO - Started logging: solve_quadratic(('abc', 2.0, 1.0), {})
+2025-11-30 15:59:33,583 - ERROR - TypeError: Coefficients must be numbers, but got (a: <class 'str'>, b: <class 'float'>, c: <class 'float'>)
+2025-11-30 15:59:33,583 - INFO - Started logging: solve_quadratic((0.0, 0.0, 1.0), {})
+2025-11-30 15:59:33,584 - ERROR - ArithmeticError: a and b cannot both be zero
+2025-11-30 15:59:33,584 - INFO - Started logging: solve_quadratic((1, 2, 3), {})
+2025-11-30 15:59:33,585 - INFO - Finishing logging: solve_quadratic returned Discriminant is negative (D<0), no real roots
+2025-11-30 15:59:33,585 - INFO - Started logging: solve_quadratic((1, '2', 3), {})
+2025-11-30 15:59:33,585 - ERROR - TypeError: Coefficients must be numbers, but got (a: <class 'int'>, b: <class 'str'>, c: <class 'int'>)
