@@ -1,26 +1,20 @@
 package enums;
 
-public enum Time {
-    ATTHEENDOF(0,"в конце концов"),
-    INTHEEND(1,"в итоге"),
-    VERYLATETONIGHT(2, "очень поздно той ночью"),
-    NEXTDAY(3, "на следующий день"),
-    FORALONGTIME(4, "в течение долгого времени"),;
-
-
-    private final int index;
-    private final String time;
-
-    Time(int index, String time){
-        this.index = index;
-        this.time = time;
+public record Time(int h, int m, int s){
+    public Time(int h, int m, int s){
+        this.h = Math.clamp(h, 0, 24);
+        this.m = Math.clamp(m, 0, 60);
+        this.s = Math.clamp(s, 0, 60);
     }
-    
-    public int getIndex() {
-        return this.index;
-    }
-    
-    public String getTime() {
-        return this.time;
+
+    public String getDescription(){
+        return switch(h){
+            case 0 -> new String("Поздняя ночь");
+            case 1 -> "Поздняя ночь";
+            case 2 -> "Поздняя ночь";
+            case 3 -> "Поздняя ночь";
+            case 4 -> "Поздняя ночь";
+            case 5 -> "П";
+        }
     }
 }

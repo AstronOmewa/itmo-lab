@@ -1,6 +1,5 @@
 package models;
 
-import enums.EventType;
 import interfaces.Breakable;
 import interfaces.Distractable;
 
@@ -12,20 +11,22 @@ public class Shutilo extends Human implements Distractable {
 
 
     public EventSequence veryHurry() {
-        Event hurry = new Event(EventType.VERYHURRY).addSubject(this);
-        Event fail = new Event(EventType.WENTWRONG);
-        EventSequence es = new EventSequence().addEvent(fail).addCondition(hurry);
+        Event hurry = new Event("очень спешил").addSubject(this);
+        Event consequence;
+        if(Math.random() < 0.7) consequence = new Event("все пошло не так, как надо");
+        else consequence = new Event("все шло, как было задумано");
+        EventSequence es = new EventSequence().addEvent(consequence).addCondition(hurry);
         return es;
     }
 
     public Event jumpOverRoom() {
-        Event jumpOverRoom = new Event(EventType.JUMPOVERROOM).addSubject(this);
+        Event jumpOverRoom = new Event("скакал по всей комнате").addSubject(this);
 
         return jumpOverRoom;
     }
 
     public Event goOut(Cloth cloth) {
-        Event goOut = new Event(EventType.GOOUT).addSubject(this).addObject(cloth);
+        Event goOut = new Event("ушел").addSubject(this).addObject(cloth);
 
         return goOut;
     }

@@ -1,37 +1,36 @@
 package models;
 
-import enums.EventType;
 import enums.Time;
 import java.util.ArrayList;
 
 public class Event {
     public ArrayList<Entity> subject;
-    private EventType event;
+    private String event;
     private Time when;
     private Entity object;
 
-    public Event(EventType eventType, ArrayList<Entity> subject, Time when, Entity object){
+    public Event(String eventType, ArrayList<Entity> subject, Time when, Entity object){
         this.subject = subject;
         this.event = eventType;
         this.when = when;
         this.object = object;
     }
 
-    public Event(EventType eventType, ArrayList<Entity> subject, Time when){
+    public Event(String eventType, ArrayList<Entity> subject, Time when){
         this.subject = subject;
         this.event = eventType;
         this.when = when;
         this.object = null;
     }
 
-    public Event(EventType eventType, ArrayList<Entity> subject){
+    public Event(String eventType, ArrayList<Entity> subject){
         this.subject = subject;
         this.event = eventType;
         this.when = null;
         this.object = null;
     }
 
-    public Event(EventType eventType){
+    public Event(String eventType){
         this.event = eventType;
         this.subject = new ArrayList<>();
         this.when = null;
@@ -63,7 +62,7 @@ public class Event {
         return new Event(this.event, this.subject, this.when, this.object);
     }
 
-    public EventType getEventType() {
+    public String getString() {
         return event;
     }
 
@@ -93,7 +92,7 @@ public class Event {
 
     // Описание события
     if (event != null) {
-        output.append(event.getEventType());
+        output.append(event);
     }
 
     // Объект события (над кем или над чем происходит действие)
@@ -112,7 +111,7 @@ public class Event {
     @Override
     public String toString() {
         return "Event{" +
-                "event=" + (event != null ? event.getEventType() : "null") +
+                "event=" + (event != null ? event : "null") +
                 ", subject=" + subject +
                 ", when=" + (when != null ? when.getTime() : "null") +
                 ", object=" + (object != null ? object.getName() : "null") +

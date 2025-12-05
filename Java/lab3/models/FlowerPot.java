@@ -1,6 +1,5 @@
 package models;
 
-import enums.EventType;
 import enums.FlowerType;
 import interfaces.Breakable;
 import interfaces.Storable;
@@ -20,7 +19,7 @@ public class FlowerPot extends Item implements Storable, Breakable {
     @Override
     public Event breakItem() {
         isBroken = true;
-        return new Event(EventType.ITEMBREAK).addObject(this);
+        return new Event("разбился вдребезги").addObject(this);
     }
 
     public boolean isBroken() {

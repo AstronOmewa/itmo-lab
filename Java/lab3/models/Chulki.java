@@ -8,11 +8,16 @@ public class Chulki extends Cloth implements Missarangeable {
     
     public Chulki(Human whoWears, String name){
         super(whoWears, name);
+        
     }
 
     @Override
     public Event wear(Human whoWears) throws ClothingMiswearException {
         this.whoWears = whoWears;
+        Event e = new Event();
+        if(Math.random() < 0.45){
+            e = missarrange();
+        }
         if (!isCorrectlyArranged) {
             throw new ClothingMiswearException("Чулки", "неправильно расположены");
         }

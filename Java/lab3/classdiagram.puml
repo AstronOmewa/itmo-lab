@@ -151,7 +151,7 @@ class InventoryCell <<record>> {
 }
 
 class Event {
-    + subject: ArrayList<Human>
+    - subject: ArrayList<Human>
     - event: EventType
     - when: Time
     - object: Human

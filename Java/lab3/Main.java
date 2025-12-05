@@ -87,7 +87,7 @@ public class Main {
         ArrayList<Entity> sleepers = new ArrayList<>();
         sleepers.add(shutilo);
         sleepers.add(korzhik);
-        Event sleep = new Event(EventType.FALLASLEAP)
+        Event sleep = new Event("уснули")
             .addTime(Time.VERYLATETONIGHT);
         sleep.subject = sleepers;
         seq3.addEvent(sleep);
