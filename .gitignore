@@ -1,3 +1,7 @@
 ./Python/__pycache__
 ./.venv
+./.claude
+*.bin
+*.csv
+chroma.sqlite3
 *.code-workspace
