@@ -1,7 +1,6 @@
 # Общий репозиторий для всего итмошного
 
-
-## В папке каждой лабы по питону лежит свой ридми
+## В папке каждой лабы по Python лежит свой ридми
 
 Лабораторная работа 1: https://github.com/AstronOmewa/itmo-lab/tree/main/Python/Lab1
 
@@ -16,3 +15,6 @@
 Лабораторная работа 6: https://github.com/AstronOmewa/itmo-lab/tree/main/Python/Lab6
 
 
+## Лабы по Java:
+
+Лаба 3: https://github.com/AstronOmewa/itmo-lab/tree/main/Java/lab3
