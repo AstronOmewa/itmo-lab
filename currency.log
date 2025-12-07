@@ -1,2 +1,0 @@
-2025-11-30 15:59:33,146 - INFO - Started logging: get_currencies((['USD', 'EUR'],), {})
-2025-11-30 15:59:33,581 - INFO - Finishing logging: get_currencies returned {'USD': 78.2284, 'EUR': 90.819}

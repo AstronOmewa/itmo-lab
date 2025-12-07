@@ -192,10 +192,6 @@
                 <div class="stat-value">{{ currencies|length }}</div>
                 <div class="stat-label">Всего валют</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-value">{{ "%.2f"|format(currencies|map(attribute='get_rate_per_unit')|list|sum / currencies|length) }}</div>
-                <div class="stat-label">Средний курс</div>
-            </div>
         </div>
         {% endif %}
 

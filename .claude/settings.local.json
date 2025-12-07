@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m pytest:*)",
+      "Bash(python:*)",
+      "Bash(pip install:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(dir:*)",
+      "Bash(del:*)",
+      "Bash(git init:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

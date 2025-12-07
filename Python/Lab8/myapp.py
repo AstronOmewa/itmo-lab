@@ -13,14 +13,15 @@ from typing import Dict, List, Any, Optional
 # Add project root to path for imports
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from jinja2 import Environment, PackageLoader, select_autoescape
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 from models import Author, App, User, Currency, UserCurrency
 from utils.currencies_api import get_currencies, get_currency_history
 
 
 # Initialize Jinja2 environment
+template_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 env = Environment(
-    loader=PackageLoader("__main__"),
+    loader=FileSystemLoader(template_dir),
     autoescape=select_autoescape(['html', 'xml'])
 )
 
@@ -62,6 +63,8 @@ class CurrencyRequestHandler(BaseHTTPRequestHandler):
                 self.handle_currencies()
             elif path == '/author':
                 self.handle_author()
+            elif path == '/favicon.ico':
+                self.handle_favicon()
             elif path.startswith('/api/'):
                 self.handle_api(path[5:], query_params)
             else:
@@ -104,6 +107,7 @@ class CurrencyRequestHandler(BaseHTTPRequestHandler):
         """Handle users list page"""
         template = env.get_template("users.html")
         html = template.render(
+            app=self.app,
             users=list(self.users.values()),
             navigation=self._get_navigation()
         )
@@ -129,6 +133,7 @@ class CurrencyRequestHandler(BaseHTTPRequestHandler):
 
         template = env.get_template("user_detail.html")
         html = template.render(
+            app=self.app,
             user=user,
             user_currencies=user_currencies,
             navigation=self._get_navigation()
@@ -158,6 +163,7 @@ class CurrencyRequestHandler(BaseHTTPRequestHandler):
 
             template = env.get_template("currencies.html")
             html = template.render(
+                app=self.app,
                 currencies=list(self.currencies.values()),
                 last_update=currencies_data.get('USD', {}).get('date'),
                 navigation=self._get_navigation()
@@ -168,6 +174,7 @@ class CurrencyRequestHandler(BaseHTTPRequestHandler):
             # If API fails, show cached currencies
             template = env.get_template("currencies.html")
             html = template.render(
+                app=self.app,
                 currencies=list(self.currencies.values()),
                 error=f"Не удалось обновить курсы: {str(e)}",
                 navigation=self._get_navigation()
@@ -256,6 +263,12 @@ class CurrencyRequestHandler(BaseHTTPRequestHandler):
 
         except Exception as e:
             self.send_json_response({'error': str(e)}, status=400)
+
+    def handle_favicon(self) -> None:
+        """Handle favicon.ico request"""
+        # Return empty response for favicon
+        self.send_response(204)
+        self.end_headers()
 
     def handle_404(self) -> None:
         """Handle 404 Not Found"""
