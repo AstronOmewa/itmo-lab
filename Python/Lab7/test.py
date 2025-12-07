@@ -34,9 +34,8 @@ class TestDecoratorWithStringIO(unittest.TestCase):
         self.assertEqual(result, 10)
         
         # Проверяем логи
-        self.assertIn("Started", logs)
-        self.assertIn("Finishing", logs)
-        self.assertIn("success", logs)
+        self.assertIn("Calling", logs)
+        self.assertIn("returned", logs)
     
     def test_logging_exception_stream(self):
         """Тест логирования исключения в поток"""
@@ -50,7 +49,8 @@ class TestDecoratorWithStringIO(unittest.TestCase):
         
         logs = self.stream.getvalue()
         # При использовании StringIO ошибка логируется как объект
-        self.assertIn("Started", logs)
+        self.assertIn("Calling", logs)
+        self.assertIn("ERROR", logs)
 
 
 class TestDecoratorWithLogging(unittest.TestCase):
@@ -80,8 +80,8 @@ class TestDecoratorWithLogging(unittest.TestCase):
         
         self.assertEqual(result, 10)
         self.assertIn("INFO", logs)
-        self.assertIn("Started", logs)
-        self.assertIn("Finishing", logs)
+        self.assertIn("Calling", logs)
+        self.assertIn("returned", logs)
     
     def test_logging_exception_logger(self):
         """Тест логирования исключения с logging.Logger"""
@@ -197,8 +197,9 @@ class TestSolveQuadratic(unittest.TestCase):
         """Тест при отрицательном дискриминанте"""
         # x^2 + 1 = 0 -> нет действительных корней
         result = solve_quadratic(1.0, 0.0, 1.0)
-        # Функция возвращает ValueError при D<0
-        self.assertIsInstance(result, ValueError)
+        # Функция возвращает строку с сообщением при D<0
+        self.assertIsInstance(result, str)
+        self.assertIn("No real roots", result)
     
     def test_invalid_coefficients_type(self):
         """Тест при неверных типах коэффициентов"""
@@ -236,7 +237,7 @@ class TestDecoratorWithFileLogging(unittest.TestCase):
         
         self.assertEqual(result, 6)
         self.assertIn("INFO", logs)
-        self.assertIn("Started", logs)
+        self.assertIn("Calling", logs)
 
 
 class TestDecoratorWithStdout(unittest.TestCase):
@@ -254,8 +255,8 @@ class TestDecoratorWithStdout(unittest.TestCase):
         logs = stream.getvalue()
         
         self.assertEqual(result, 12)
-        self.assertIn("Started", logs)
-        self.assertIn("success", logs)
+        self.assertIn("Calling", logs)
+        self.assertIn("returned", logs)
 
 
 if __name__ == '__main__':

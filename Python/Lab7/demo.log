@@ -1,0 +1,6 @@
+2025-12-06 00:36:16,973 - demo_file - INFO - Calling factorial with args=(5,), kwargs={}
+2025-12-06 00:36:16,973 - demo_file - INFO - factorial returned 120
+2025-12-06 00:36:16,973 - demo_file - INFO - Calling factorial with args=(0,), kwargs={}
+2025-12-06 00:36:16,974 - demo_file - INFO - factorial returned 1
+2025-12-06 00:36:16,974 - demo_file - INFO - Calling factorial with args=(-3,), kwargs={}
+2025-12-06 00:36:16,974 - demo_file - ERROR - ValueError: Факториал отрицательного числа не определен

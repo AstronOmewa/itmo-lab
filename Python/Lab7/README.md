@@ -273,13 +273,3 @@ ERROR - TypeError: Coefficients must be numbers, but got (a: <class 'str'>, b: <
 INFO - Started logging: get_currencies((['USD'],), {})
 ERROR - ConnectionError: Failed to connect to https://www.cbr-xml-daily.ru/daily_json.js: ...
 ```
-
-## Заключение
-
-Лабораторная работа демонстрирует:
-- ✅ Создание параметризуемых декораторов
-- ✅ Разделение ответственности между функциями и декораторами
-- ✅ Обработку исключений при работе с внешними API
-- ✅ Различные способы логирования
-- ✅ Написание модульных тестов
-- ✅ Следование PEP8 и документированию кода

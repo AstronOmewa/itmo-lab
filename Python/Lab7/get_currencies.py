@@ -8,12 +8,21 @@ from handler import logger
 
 # Настройка файлового логирования
 file_logger = logging.getLogger("currency_file")
-file_handler = logging.FileHandler("currency.log", mode="w", encoding="utf-8")
-formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
-file_handler.setFormatter(formatter)
 
-file_logger.addHandler(file_handler)
-file_logger.setLevel(logging.INFO)
+# Проверяем, есть ли уже обработчики, чтобы избежать дублирования
+if not file_logger.handlers:
+    # Обработчик для записи в файл
+    file_handler = logging.FileHandler("currency.log", mode="w", encoding="utf-8")
+    formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+    file_handler.setFormatter(formatter)
+
+    # Обработчик для вывода в консоль
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(formatter)
+
+    file_logger.addHandler(file_handler)
+    file_logger.addHandler(console_handler)
+    file_logger.setLevel(logging.INFO)
 
 
 @logger(handle=file_logger)

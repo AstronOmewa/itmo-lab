@@ -98,6 +98,7 @@ def demo_get_currencies():
     try:
         print("Получение курсов USD и EUR...")
         result = get_currencies(['USD', 'EUR'])
+
         print(f"Результат: {result}\n")
     except ConnectionError as e:
         print(f"Ошибка подключения: {e}\n")
@@ -146,10 +147,6 @@ def demo_solve_quadratic():
 
 
 def main():
-    """Главная функция для демонстрации"""
-    print("\n" + "#"*60)
-    print("# ЛАБОРАТОРНАЯ РАБОТА 7: ДЕКОРАТОРЫ И ЛОГИРОВАНИЕ")
-    print("#"*60 + "\n")
     
     demo_logger_with_stdout()
     demo_logger_with_stringio()
@@ -158,10 +155,6 @@ def main():
     demo_get_currencies()
     demo_solve_quadratic()
     
-    print("="*60)
-    print("ДЕМОНСТРАЦИЯ ЗАВЕРШЕНА")
-    print("="*60 + "\n")
-    
     print("Логи сохранены в файлы:")
     print("- currency.log (логи get_currencies)")
     print("- quadratic.log (логи solve_quadratic)\n")
@@ -169,8 +162,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-# solve_quadratic(0,0,1)
-solve_quadratic(1,2,3)
-solve_quadratic(1,'2',3)

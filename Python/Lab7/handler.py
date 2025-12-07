@@ -37,10 +37,10 @@ def logger(func=None, *, handle=sys.stdout):
     if isinstance(handle, logging.Logger):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            handle.info(f"Started logging: {func.__name__}({args}, {kwargs})")
+            handle.info(f"Calling {func.__name__} with args={args}, kwargs={kwargs}")
             try:
                 res = func(*args, **kwargs)
-                handle.info(f"Finishing logging: {func.__name__} returned {res}")
+                handle.info(f"{func.__name__} returned {res}")
             except Exception as e:
                 handle.error(f"{type(e).__name__}: {e}")
                 raise
@@ -49,12 +49,12 @@ def logger(func=None, *, handle=sys.stdout):
     else:
         @wraps(func)
         def wrapper(*args, **kwargs):
-            handle.write(f"Started logging: {func.__name__}({args}, {kwargs})\n")
+            handle.write(f"Calling {func.__name__} with args={args}, kwargs={kwargs}\n")
             try:
                 res = func(*args, **kwargs)
-                handle.write(f"Finishing logging: {func.__name__} returned {res}\n")
+                handle.write(f"{func.__name__} returned {res}\n")
             except Exception as e:
-                handle.write(f"{type(e).__name__}: {e}\n")
+                handle.write(f"ERROR: {type(e).__name__}: {e}\n")
                 raise
             return res
         return wrapper

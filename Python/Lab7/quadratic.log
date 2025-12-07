@@ -1,0 +1,14 @@
+2025-12-07 19:01:36,358 - INFO - Calling solve_quadratic with args=(1.0, -5.0, 6.0), kwargs={}
+2025-12-07 19:01:36,358 - INFO - Starting quadratic equation: 1.0x^2 + -5.0x + 6.0 = 0
+2025-12-07 19:01:36,359 - INFO - Discriminant D = 1.0
+2025-12-07 19:01:36,359 - INFO - Two roots found: x1 = 3.0, x2 = 2.0
+2025-12-07 19:01:36,359 - INFO - solve_quadratic returned (3.0, 2.0)
+2025-12-07 19:01:36,360 - INFO - Calling solve_quadratic with args=(1.0, 0.0, 1.0), kwargs={}
+2025-12-07 19:01:36,360 - INFO - Starting quadratic equation: 1.0x^2 + 0.0x + 1.0 = 0
+2025-12-07 19:01:36,360 - INFO - Discriminant D = -4.0
+2025-12-07 19:01:36,360 - WARNING - Discriminant is negative (-4.0 < 0), no real roots
+2025-12-07 19:01:36,360 - INFO - solve_quadratic returned No real roots (D=-4.0 < 0)
+2025-12-07 19:01:36,360 - INFO - Calling solve_quadratic with args=('abc', 2.0, 1.0), kwargs={}
+2025-12-07 19:01:36,361 - ERROR - TypeError: Coefficients must be numbers, but got (a: <class 'str'>, b: <class 'float'>, c: <class 'float'>)
+2025-12-07 19:01:36,361 - INFO - Calling solve_quadratic with args=(0.0, 0.0, 1.0), kwargs={}
+2025-12-07 19:01:36,361 - ERROR - ArithmeticError: a and b cannot both be zero (critical error)
