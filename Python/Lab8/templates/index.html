@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ app.name }} - Главная</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .info {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .navigation {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+        .navigation a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        .navigation a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ app.name }}</h1>
+
+        <div class="info">
+            <h2>О приложении</h2>
+            <p><strong>Название:</strong> {{ app.name }}</p>
+            <p><strong>Версия:</strong> {{ app.version }}</p>
+            <p><strong>Автор:</strong> {{ app.author }}</p>
+        </div>
+
+        <div class="info">
+            <h2>Функционал</h2>
+            <p>Приложение для отслеживания курсов валют и подписки пользователей на изменения курсов.</p>
+            <ul>
+                <li>Просмотр актуальных курсов валют ЦБ РФ</li>
+                <li>Управление пользователями и их подписками</li>
+                <li>Мониторинг изменений курсов валют</li>
+            </ul>
+        </div>
+
+        <div class="navigation">
+            <strong>Навигация:</strong>
+            {% for item in navigation %}
+                <a href="{{ item.href }}">{{ item.caption }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
