@@ -2,26 +2,29 @@ package models;
 
 import exceptions.ClothingMiswearException;
 import interfaces.Missarangeable;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Chulki extends Cloth implements Missarangeable {
+
     private boolean isCorrectlyArranged = true;
-    
-    public Chulki(Human whoWears, String name){
+
+    public Chulki(Human whoWears, String name) {
         super(whoWears, name);
-        
+
     }
 
     @Override
     public Event wear(Human whoWears) throws ClothingMiswearException {
         this.whoWears = whoWears;
         Event e = new Event();
-        if(Math.random() < 0.45){
+        if (Math.random() < 0.45) {
             e = missarrange();
         }
         if (!isCorrectlyArranged) {
             throw new ClothingMiswearException("Чулки", "неправильно расположены");
         }
-        return new Event();
+        return new Event("одел правильно", new ArrayList<Entity>(Arrays.asList(this.whoWears)), new Time(-1, 0, 0), this);
     }
 
     @Override
@@ -47,18 +50,22 @@ public class Chulki extends Cloth implements Missarangeable {
 
     @Override
     public String toString() {
-        return "Chulki{" +
-                "name='" + name + '\'' +
-                ", owner=" + (owner != null ? owner.getName() : "null") +
-                ", whoWears=" + (whoWears != null ? whoWears.getName() : "null") +
-                ", isCorrectlyArranged=" + isCorrectlyArranged +
-                '}';
+        return "Chulki{"
+                + "name='" + name + '\''
+                + ", owner=" + (owner != null ? owner.getName() : "null")
+                + ", whoWears=" + (whoWears != null ? whoWears.getName() : "null")
+                + ", isCorrectlyArranged=" + isCorrectlyArranged
+                + '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         return this.hashCode() == o.hashCode();
     }
 

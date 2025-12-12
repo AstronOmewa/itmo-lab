@@ -5,17 +5,21 @@ import interfaces.Breakable;
 import interfaces.Storable;
 
 public class FlowerPot extends Item implements Storable, Breakable {
+
     private Inventory flowers;
     private boolean isBroken = false;
     public String name;
-    public FlowerPot(){
+
+    public FlowerPot() {
         super(null, "горшок");
     }
-    public FlowerPot(FlowerType flower){
-        super(null, "горшок с "+flower.getName().toLowerCase());
+
+    public FlowerPot(FlowerType flower) {
+        super(null, "горшок с " + flower.getName().toLowerCase());
         this.flowers = new Inventory();
         this.flowers.addItem(new Flower(flower));
     }
+
     @Override
     public Event breakItem() {
         isBroken = true;
@@ -33,27 +37,33 @@ public class FlowerPot extends Item implements Storable, Breakable {
     public void addFlower(FlowerType flower) {
         this.flowers.addItem(new Flower(flower));
     }
+
     @Override
     public Inventory getInventory() {
         return flowers;
     }
+
     @Override
     public void store(Item item) throws Exception {
-        
+
     }
 
     @Override
     public String toString() {
-        return "FlowerPot{" +
-                "flower=" + flowers.toString() +
-                ", isBroken=" + isBroken +
-                '}';
+        return "FlowerPot{"
+                + "flower=" + flowers.toString()
+                + ", isBroken=" + isBroken
+                + '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         return this.hashCode() == o.hashCode();
     }
 

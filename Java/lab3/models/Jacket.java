@@ -2,8 +2,11 @@ package models;
 
 import exceptions.ClothingMiswearException;
 import interfaces.Storable;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Jacket extends Cloth implements Storable {
+
     private final Inventory inventory;
 
     public Jacket(Human whoWears, String name) {
@@ -14,7 +17,7 @@ public class Jacket extends Cloth implements Storable {
     @Override
     public Event wear(Human whoWears) throws ClothingMiswearException {
         this.whoWears = whoWears;
-        return new Event();
+        return new Event("надел", new ArrayList<Entity>(Arrays.asList(this.whoWears)), new Time(-1, 0, 0), this);
     }
 
     @Override
@@ -37,24 +40,30 @@ public class Jacket extends Cloth implements Storable {
         return new Event();
     }
 
-    public Inventory getJacketInventory() {
+    
+    @Override
+    public Inventory getInventory() {
         return inventory;
     }
 
     @Override
     public String toString() {
-        return "Jacket{" +
-                "name='" + name + '\'' +
-                ", owner=" + (owner != null ? owner.getName() : "null") +
-                ", whoWears=" + (whoWears != null ? whoWears.getName() : "null") +
-                ", inventory=" + (inventory != null ? "present" : "null") +
-                '}';
+        return "Jacket{"
+                + "name='" + name + '\''
+                + ", owner=" + (owner != null ? owner.getName() : "null")
+                + ", whoWears=" + (whoWears != null ? whoWears.getName() : "null")
+                + ", inventory=" + (inventory != null ? "present" : "null")
+                + '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         return this.hashCode() == o.hashCode();
     }
 

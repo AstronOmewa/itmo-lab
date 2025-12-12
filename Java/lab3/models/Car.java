@@ -1,9 +1,10 @@
 package models;
 
 public class Car extends Item {
+
     private boolean isWorking = true;
 
-    public Car(String name, Human owner){ 
+    public Car(String name, Human owner) {
         super(owner, name);
     }
 
@@ -23,17 +24,21 @@ public class Car extends Item {
 
     @Override
     public String toString() {
-        return "Car{" +
-                "name='" + name + '\'' +
-                ", owner=" + (owner != null ? owner.getName() : "null") +
-                ", isWorking=" + isWorking +
-                '}';
+        return "Car{"
+                + "name='" + name + '\''
+                + ", owner=" + (owner != null ? owner.getName() : "null")
+                + ", isWorking=" + isWorking
+                + '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         return this.hashCode() == o.hashCode();
     }
 

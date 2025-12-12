@@ -2,21 +2,28 @@ package models;
 
 import exceptions.ClothingMiswearException;
 import interfaces.Misswearable;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Pants extends Cloth implements Misswearable {
-    private boolean rightLegInPants = true;
-    
+
+    protected boolean rightLegInPants = true;
+
     public Pants(Human whoWears, String name) {
         super(whoWears, name);
     }
-    
+
     @Override
     public Event wear(Human whoWears) throws ClothingMiswearException {
         this.whoWears = whoWears;
         if (!rightLegInPants) {
             throw new ClothingMiswearException("Брюки", "нога в неправильном отверстии");
         }
-        return new Event();
+        if (Math.random() < 0.6) {
+            this.misswear();
+        }
+        
+        return new Event("одел правильно", new ArrayList<Entity>(Arrays.asList(this.whoWears)), new Time(-1, 0, 0), this);
     }
 
     @Override
@@ -27,6 +34,7 @@ public class Pants extends Cloth implements Misswearable {
     @Override
     public Event misswear() throws ClothingMiswearException {
         rightLegInPants = false;
+        this.wear(this.whoWears);
         throw new ClothingMiswearException("Брюки", "не хотели налезать");
     }
 
@@ -42,18 +50,22 @@ public class Pants extends Cloth implements Misswearable {
 
     @Override
     public String toString() {
-        return "Pants{" +
-                "name='" + name + '\'' +
-                ", owner=" + (owner != null ? owner.getName() : "null") +
-                ", whoWears=" + (whoWears != null ? whoWears.getName() : "null") +
-                ", rightLegInPants=" + rightLegInPants +
-                '}';
+        return "Pants{"
+                + "name='" + name + '\''
+                + ", owner=" + (owner != null ? owner.getName() : "null")
+                + ", whoWears=" + (whoWears != null ? whoWears.getName() : "null")
+                + ", rightLegInPants=" + rightLegInPants
+                + '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         return this.hashCode() == o.hashCode();
     }
 

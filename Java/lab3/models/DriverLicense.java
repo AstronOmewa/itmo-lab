@@ -3,17 +3,20 @@ package models;
 import exceptions.ItemLostException;
 
 public class DriverLicense extends Item {
+
     private Car vehicle;
     private boolean isLost = false;
-    
-    public DriverLicense(Car vehicle){
-        super(vehicle.getOwner(), vehicle.getName());
+
+    public DriverLicense(Car vehicle) {
+        super(vehicle.getOwner(), "удостоверение на право вождения автомобиля", true);
         this.vehicle = vehicle;
     }
+
     public Car getVehicle() {
         return this.vehicle;
     }
-    private void setVehicle(Car vehicle){
+
+    private void setVehicle(Car vehicle) {
         this.vehicle = vehicle;
     }
 
@@ -35,18 +38,22 @@ public class DriverLicense extends Item {
 
     @Override
     public String toString() {
-        return "DriverLicense{" +
-                "name='" + name + '\'' +
-                ", vehicle=" + (vehicle != null ? vehicle.getName() : "null") +
-                ", owner=" + (owner != null ? owner.getName() : "null") +
-                ", isLost=" + isLost +
-                '}';
+        return "DriverLicense{"
+                + "name='" + name + '\''
+                + ", vehicle=" + (vehicle != null ? vehicle.getName() : "null")
+                + ", owner=" + (owner != null ? owner.getName() : "null")
+                + ", isLost=" + isLost
+                + '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         return this.hashCode() == o.hashCode();
     }
 
@@ -58,6 +65,7 @@ public class DriverLicense extends Item {
         result = 31 * result + (isLost ? 1 : 0);
         return result;
     }
+
     @Override
     public Inventory getInventory() {
         // TODO Auto-generated method stub

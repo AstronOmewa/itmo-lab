@@ -3,6 +3,7 @@ package models;
 import enums.FlowerType;
 
 public class Flower extends Item {
+
     private FlowerType flowerType;
 
     public Flower(FlowerType flowerType) {
@@ -14,7 +15,7 @@ public class Flower extends Item {
         return flowerType;
     }
 
-    public String getName(){
+    public String getName() {
         return flowerType.getName();
     }
 
@@ -29,5 +30,5 @@ public class Flower extends Item {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("У цветка нет инвентаря");
     }
-    
+
 }

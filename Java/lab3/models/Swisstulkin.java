@@ -1,28 +1,32 @@
 package models;
 
 public class Swisstulkin extends Human {
-    
-    public Swisstulkin(){
+
+    public Swisstulkin() {
         super("Свистулькин");
     }
 
     @Override
-    public void showInventory() {
-        System.out.printf("Инвентарь <Свистулькин>: %s\n", inventory.toString());
+    public Event showInventory() {
+         return new Event(String.format("Инвентарь <Свистулькин>: %s\n" , inventory.toString()));
     }
 
     @Override
     public String toString() {
-        return "Swisstulkin{" +
-                "name='" + name + '\'' +
-                ", inventory=" + (inventory != null ? "present" : "null") +
-                '}';
+        return "Swisstulkin{"
+                + "name='" + name + '\''
+                + ", inventory=" + (inventory != null ? "present" : "null")
+                + '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         return this.hashCode() == o.hashCode();
     }
 

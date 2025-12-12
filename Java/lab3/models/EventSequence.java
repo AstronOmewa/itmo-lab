@@ -1,6 +1,5 @@
 package models;
 
-import enums.Time;
 import java.util.ArrayList;
 
 public class EventSequence {
@@ -33,6 +32,10 @@ public class EventSequence {
     }
 
     public EventSequence() {
+        this.sequence = new ArrayList<>();
+        this.condition = null;
+        this.when = null;
+        this.object = null;
     }
 
     public EventSequence addEvent(Event event) {
@@ -40,17 +43,17 @@ public class EventSequence {
             this.sequence = new ArrayList<>();
         }
         sequence.add(event);
-        return new EventSequence(this.sequence, this.condition, this.when, this.object);
+        return new EventSequence(this.sequence, this.condition, this.when);
     }
 
     public EventSequence addCondition(Event condition) {
         this.condition = condition;
-        return new EventSequence(this.sequence, this.condition, this.when, this.object);
+        return new EventSequence(this.sequence, this.condition, this.when);
     }
 
     public EventSequence addTime(Time when) {
         this.when = when;
-        return new EventSequence(this.sequence, this.condition, this.when, this.object);
+        return new EventSequence(this.sequence, this.condition, this.when);
     }
 
     public EventSequence addObject(Human object) {
@@ -61,13 +64,16 @@ public class EventSequence {
     public void simulate() {
         System.out.println("=== Выполнение последовательности событий ===");
         for (int i = 0; i < sequence.size(); i++) {
-            System.out.print("[" + (i + 1) + "] ");
             Event e = sequence.get(i);
             e.happen();
         }
-        if (condition instanceof Event) {
+        if (this.condition instanceof Event) {
             System.out.print("[Это произошло потому, что] ");
             condition.happen();
+        }
+
+        if (this.when instanceof Time) {
+            System.out.print("[Это было " + when.getString() + " ]");
         }
         System.out.println();
     }

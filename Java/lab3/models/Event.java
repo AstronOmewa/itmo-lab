@@ -1,50 +1,50 @@
 package models;
 
-import enums.Time;
 import java.util.ArrayList;
 
 public class Event {
+
     public ArrayList<Entity> subject;
     private String event;
     private Time when;
     private Entity object;
 
-    public Event(String eventType, ArrayList<Entity> subject, Time when, Entity object){
+    public Event(String eventType, ArrayList<Entity> subject, Time when, Entity object) {
         this.subject = subject;
         this.event = eventType;
         this.when = when;
         this.object = object;
     }
 
-    public Event(String eventType, ArrayList<Entity> subject, Time when){
+    public Event(String eventType, ArrayList<Entity> subject, Time when) {
         this.subject = subject;
         this.event = eventType;
         this.when = when;
         this.object = null;
     }
 
-    public Event(String eventType, ArrayList<Entity> subject){
+    public Event(String eventType, ArrayList<Entity> subject) {
         this.subject = subject;
         this.event = eventType;
         this.when = null;
         this.object = null;
     }
 
-    public Event(String eventType){
+    public Event(String eventType) {
         this.event = eventType;
         this.subject = new ArrayList<>();
         this.when = null;
         this.object = null;
     }
 
-    public Event(){
+    public Event() {
         this.event = null;
         this.subject = new ArrayList<>();
         this.when = null;
         this.object = null;
     }
 
-    public Event addSubject(Entity h){
+    public Event addSubject(Entity h) {
         if (this.subject == null) {
             this.subject = new ArrayList<>();
         }
@@ -52,12 +52,20 @@ public class Event {
         return new Event(this.event, this.subject, this.when, this.object);
     }
 
-    public Event addTime(Time when){
+    public Event addSubject(ArrayList<Entity> h) {
+        if (this.subject == null) {
+            this.subject = new ArrayList<>();
+        }
+        this.subject.addAll(h);
+        return new Event(this.event, this.subject, this.when, this.object);
+    }
+
+    public Event addTime(Time when) {
         this.when = when;
         return new Event(this.event, this.subject, this.when, this.object);
     }
 
-    public Event addObject(Entity object){
+    public Event addObject(Entity object) {
         this.object = object;
         return new Event(this.event, this.subject, this.when, this.object);
     }
@@ -70,51 +78,59 @@ public class Event {
         return when;
     }
 
-   public void happen() {
-    StringBuilder output = new StringBuilder();
+    public String happen() {
+        StringBuilder output = new StringBuilder();
 
-
-
-    // Время
-    if (when != null) {
-        output.append("[").append(when.getTime()).append("] ");
-    }
-
-    // Субъекты (кто выполняет действие)
-    if (subject != null && !subject.isEmpty()) {
-        for (int i = 0; i < subject.size(); i++) {
-            output.append(subject.get(i).getName());
-            if (i < subject.size() - 1) output.append(" и ");
-            
+        // Время
+        if (when != null) {
+            output.append("[").append(when.getString()).append("] ");
         }
-        output.append(" ");
-    }
 
-    // Описание события
-    if (event != null) {
-        output.append(event);
-    }
-
-    // Объект события (над кем или над чем происходит действие)
-    if (object != null) {
-        output.append(" ").append(object.getName());
-        if(object.getInventory() != null){
-            output.append(" (инвентарь/содержит: ");
-            output.append(object.getInventory().show());
-            output.append(")");
+        // Субъекты (кто выполняет действие)
+        if (subject != null && !subject.isEmpty()) {
+            for (int i = 0; i < subject.size(); i++) {
+                Entity entity = subject.get(i);
+                if (entity != null) {
+                    output.append(entity.getName());
+                    if (i < subject.size() - 1) {
+                        output.append(" и ");
+                    }
+                }
+            }
+            output.append(" ");
         }
-        output.append(object.getInventory());
+
+        // Описание события
+        if (event != null) {
+            output.append(event);
+        }
+
+        // Объект события (над кем или над чем происходит действие)
+        if (object != null) {
+            output.append(" ").append(object.getName());
+            try {
+                if (!object.getInventory().isEmpty()) {
+                    output.append(" (инвентарь/содержит: ");
+                    output.append(object.getInventory().show());
+                    output.append(")");
+                }
+            } catch (UnsupportedOperationException e) {
+                // У объекта нет инвентаря
+            }
+            // output.append(object.getInventory());
+        }
+
+        System.out.println(output.toString());
+        return output.toString();
     }
 
-    System.out.println(output.toString());
-    }
     @Override
     public String toString() {
-        return "Event{" +
-                "event=" + (event != null ? event : "null") +
-                ", subject=" + subject +
-                ", when=" + (when != null ? when.getTime() : "null") +
-                ", object=" + (object != null ? object.getName() : "null") +
-                '}';
+        return "Event{"
+                + "event=" + (event != null ? event : "null")
+                + ", subject=" + subject.toString()
+                + ", when=" + (when != null ? when.getString() : "null")
+                + ", object=" + (object != null ? object.getName() : "null")
+                + '}';
     }
 }

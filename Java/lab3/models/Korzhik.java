@@ -1,29 +1,32 @@
 package models;
 
 public class Korzhik extends Human {
-    
-    
+
     public Korzhik() {
         super("Коржик");
     }
 
     @Override
-    public void showInventory(){
-        System.out.printf("Инвентарь <Коржик>: %s\n", inventory.toString());
+    public Event showInventory() {
+         return new Event(String.format("Инвентарь <Коржик>: %s\n" , inventory.toString()));
     }
 
     @Override
     public String toString() {
-        return "Korzhik{" +
-                "name='" + name + '\'' +
-                ", inventory=" + (inventory != null ? "present" : "null") +
-                '}';
+        return "Korzhik{"
+                + "name='" + name + '\''
+                + ", inventory=" + (inventory != null ? "present" : "null")
+                + '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         return this.hashCode() == o.hashCode();
     }
 
