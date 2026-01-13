@@ -48,7 +48,7 @@ public class Event {
 
     private String getEventLog() {
         StringBuilder sb = new StringBuilder();
-        sb.append("⚡ СОБЫТИЕ: ").append(name);
+        sb.append("СОБЫТИЕ: ").append(name);
         if (!description.isEmpty()) {
             sb.append(" - ").append(description);
         }

@@ -23,7 +23,7 @@ public class Lunit extends PhysicalObject {
         this.isDiscovered = true;
         this.discoveryLocation = location;
         this.gravitationalEffect = 1.0;
-        System.out.println("🌟 В " + location.getDescription() + " обнаружены залежи лунита!");
+        System.out.println("В " + location.getDescription() + " обнаружены залежи лунита!");
         System.out.println("   Теперь можно соорудить прибор невесомости, что облегчит полеты вокруг Луны");
     }
 
@@ -31,7 +31,7 @@ public class Lunit extends PhysicalObject {
         if (!isDiscovered) {
             throw new IllegalStateException("Лунит еще не обнаружен! Нельзя создать прибор.");
         }
-        System.out.println("⚡ Из лунита создан прибор невесомости!");
+        System.out.println("Из лунита создан прибор невесомости!");
         return new WeightlessnessDevice(this);
     }
 
@@ -84,7 +84,7 @@ public class Lunit extends PhysicalObject {
 
         public void activate() {
             this.isActive = true;
-            System.out.println("✨ Прибор невесомости активирован! Гравитация нейтрализована.");
+            System.out.println("Прибор невесомости активирован! Гравитация нейтрализована.");
         }
 
         public void deactivate() {

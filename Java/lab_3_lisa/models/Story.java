@@ -76,7 +76,7 @@ public class Story {
         }
 
         public Chapter thought(Thought thought) {
-            System.out.println("💭 " + thought);
+            System.out.println(thought);
             return this;
         }
 

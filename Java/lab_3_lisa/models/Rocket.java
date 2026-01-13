@@ -67,7 +67,7 @@ public class Rocket extends PhysicalObject implements Transportable {
     public void launch() throws InsufficientResourcesException {
         // Проверка наличия чертежей (unchecked exception через IllegalStateException)
         if (blueprints.isEmpty()) {
-            throw new IllegalStateException("🚫 Ракета '" + getName() +
+            throw new IllegalStateException("Ракета '" + getName() +
                                           "' не может быть запущена без чертежей!") {
                 @Override
                 public String getMessage() {
@@ -87,7 +87,7 @@ public class Rocket extends PhysicalObject implements Transportable {
         }
 
         this.isLaunched = true;
-        System.out.println("🚀 Ракета '" + getName() + "' успешно запущена!");
+        System.out.println("Ракета '" + getName() + "' успешно запущена!");
         System.out.println("   Система управления: " + controlSystem.getDescription());
         if (hasLunit) {
             System.out.println("   Прибор невесомости: активирован");
@@ -109,7 +109,7 @@ public class Rocket extends PhysicalObject implements Transportable {
         }
 
         this.isLaunched = true;
-        System.out.println("🚀 Ракета '" + getName() + "' запущена в штатном режиме");
+        System.out.println("Ракета '" + getName() + "' запущена в штатном режиме");
         System.out.println("   Полет проходит в условиях тяжести");
         System.out.println("   Система управления: " +
                           (controlSystem != null ? controlSystem.getDescription() : "Не установлена"));

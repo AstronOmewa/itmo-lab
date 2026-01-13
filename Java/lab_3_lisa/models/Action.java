@@ -75,7 +75,7 @@ public class Action {
      */
     private String getExecutionLog() {
         StringBuilder sb = new StringBuilder();
-        sb.append("✓ ").append(performer.getName()).append(" ").append(description);
+        sb.append(performer.getName()).append(" ").append(description);
 
         if (!targets.isEmpty()) {
             sb.append(" [");

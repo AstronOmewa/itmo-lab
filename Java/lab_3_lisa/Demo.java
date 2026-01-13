@@ -52,7 +52,7 @@ public class Demo {
         System.out.println();
 
         Thought thought1 = znaika.think("об использовании лунита", "техническая идея");
-        System.out.println("💭 Создана мысль: " + thought1);
+        System.out.println("Создана мысль: " + thought1);
         System.out.println("   Категория: " + thought1.getCategory());
         System.out.println("   Автор: " + thought1.getAuthor().getName());
         System.out.println("   Поделена: " + thought1.isShared());
